@@ -207,10 +207,42 @@ document.addEventListener('DOMContentLoaded', () => {
           <img src="${p.img}" style="width: 100%; height: 100%; max-height: 450px; object-fit: contain; ${p.filter ? `filter: ${p.filter};` : ''}" alt="${p.name}">
         </div>
         <div style="flex: 1 1 300px; min-width: 300px; padding: 48px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; background: var(--bg);">
-          <h2 style="font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; font-weight: 400;">${p.name}</h2>
-          <p style="font-size: 24px; color: var(--accent); margin-bottom: 24px;">$${p.price}</p>
-          <p style="color: var(--muted); margin-bottom: 32px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
-          <button onclick="window.LoyalCart.addItem(products.find(x => x.id === ${p.id}), products.find(x => x.id === ${p.id}).sizes[0]);" class="btn btn-primary" style="width: 100%; padding: 16px;">Add to Bag</button>
+          
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+            <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 0;">${p.category} &bull; SKU: LY-${p.id.toString().padStart(3, '0')}</p>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="color: #F59E0B; font-size: 14px; letter-spacing: 2px;">★★★★★</span>
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">(128)</span>
+            </div>
+          </div>
+
+          <h2 style="font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; font-weight: 500; color: var(--fg); line-height: 1.1;">${p.name}</h2>
+          <p style="font-size: 24px; color: var(--accent); margin-bottom: 24px; font-weight: 400;">$${p.price}</p>
+          
+          <p style="color: var(--muted); margin-bottom: 32px; line-height: 1.6; font-size: 14px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
+          
+          <div style="margin-bottom: 24px;">
+            <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); margin-bottom: 8px; font-weight: 600;">Color: <span style="color: var(--muted); font-weight: 400;">${p.color || 'Signature Standard'}</span></p>
+          </div>
+
+          <div style="margin-bottom: 32px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+              <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 600; margin: 0;">Select Size</p>
+              <a href="#" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: underline;">Size Guide</a>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              ${(p.sizes || ['S', 'M', 'L', 'XL']).map((sz, i) => `
+                <button style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid ${i === 1 ? 'var(--fg)' : 'var(--border)'}; background: ${i === 1 ? 'var(--fg)' : 'transparent'}; color: ${i === 1 ? 'var(--bg)' : 'var(--fg)'}; font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: all 0.2s;">${sz}</button>
+              `).join('')}
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 32px;">
+            <div style="width: 8px; height: 8px; border-radius: 50%; background: #10B981;"></div>
+            <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 500;">In Stock &mdash; Ships within 24h</span>
+          </div>
+
+          <button onclick="window.LoyalCart.addItem(products.find(x => x.id === ${p.id}), '${(p.sizes || ['S', 'M', 'L', 'XL'])[1]}'); document.querySelector('#quickview-overlay').classList.remove('active');" class="btn btn-primary" style="width: 100%; padding: 18px; font-weight: 600; letter-spacing: 0.1em; box-shadow: var(--shadow-soft);">Add to Bag &mdash; $${p.price}</button>
         </div>
       `;
       openOverlay('quickview');
