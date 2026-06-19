@@ -223,23 +223,23 @@ document.addEventListener('DOMContentLoaded', () => {
             <div style="margin-bottom: 32px;">
               <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); margin-bottom: 12px; font-weight: 500;">Color &mdash; <span style="color: var(--muted);">${p.color || 'Signature Standard'}</span></p>
               <div style="display: flex; gap: 12px;">
-                <div style="width: 28px; height: 28px; border-radius: 50%; background: ${p.color && p.color.includes('Blue') ? '#2563EB' : p.color && p.color.includes('Yellow') ? '#EAB308' : p.color && p.color.includes('Pink') ? '#DB2777' : p.color && p.color.includes('Red') ? '#DC2626' : p.color && p.color.includes('Orange') ? '#EA580C' : p.color && p.color.includes('Violet') ? '#7C3AED' : '#1A1512'}; outline: 1px solid var(--fg); outline-offset: 2px; cursor: pointer;"></div>
+                <div style="width: 28px; height: 28px; border-radius: 50%; background: ${p.color && p.color.includes('Blue') ? '#2563EB' : p.color && p.color.includes('Yellow') ? '#EAB308' : p.color && p.color.includes('Pink') ? '#DB2777' : p.color && p.color.includes('Red') ? '#DC2626' : p.color && p.color.includes('Orange') ? '#EA580C' : p.color && p.color.includes('Violet') ? '#7C3AED' : '#1A1512'}; outline: 1px solid var(--fg); outline-offset: 2px;"></div>
               </div>
             </div>
 
             <div style="margin-bottom: 40px;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 12px; align-items: baseline;">
                 <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 500; margin: 0;">Size</p>
-                <a href="#" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: underline;">Size Guide</a>
+                <a href="#" onclick="event.preventDefault(); alert('Size Guide: Fits true to size. Take your normal size.');" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: underline;">Size Guide</a>
               </div>
-              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;" id="q-size-selector">
                 ${(p.sizes || ['S', 'M', 'L', 'XL']).map((sz, i) => `
-                  <button style="height: 44px; border: 1px solid ${i === 1 ? 'var(--fg)' : 'var(--border)'}; background: ${i === 1 ? 'var(--fg)' : 'transparent'}; color: ${i === 1 ? 'var(--bg)' : 'var(--fg)'}; font-family: var(--font-mono); font-size: 13px; cursor: pointer; transition: all 0.2s;">${sz}</button>
+                  <button class="q-size-btn" data-size="${sz}" style="height: 44px; border: 1px solid ${i === 1 ? 'var(--fg)' : 'var(--border)'}; background: ${i === 1 ? 'var(--fg)' : 'transparent'}; color: ${i === 1 ? 'var(--bg)' : 'var(--fg)'}; font-family: var(--font-mono); font-size: 13px; cursor: pointer; transition: all 0.2s;">${sz}</button>
                 `).join('')}
               </div>
             </div>
 
-            <button onclick="window.LoyalCart.addItem(products.find(x => x.id === ${p.id}), '${(p.sizes || ['S', 'M', 'L', 'XL'])[1]}'); document.querySelector('#quickview-overlay').classList.remove('active');" style="width: 100%; padding: 18px; background: var(--fg); color: var(--bg); border: 1px solid var(--fg); font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; font-size: 13px; transition: all 0.2s; margin-bottom: 16px;">Add to Bag</button>
+            <button id="q-add-to-bag" style="width: 100%; padding: 18px; background: var(--fg); color: var(--bg); border: 1px solid var(--fg); font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; font-size: 13px; transition: all 0.2s; margin-bottom: 16px;">Add to Bag</button>
             
             <div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
               <div style="width: 6px; height: 6px; border-radius: 50%; background: #10B981;"></div>
@@ -247,19 +247,71 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
 
             <div style="margin-top: 48px; border-top: 1px solid var(--border);">
-              <div style="padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; cursor: pointer;">
-                <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Details & Care</span>
-                <span style="color: var(--muted);">+</span>
+              <div class="q-accordion" style="border-bottom: 1px solid var(--border);">
+                <div style="padding: 16px 0; display: flex; justify-content: space-between; cursor: pointer;">
+                  <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Details & Care</span>
+                  <span class="q-icon" style="color: var(--muted); transition: transform 0.3s;">+</span>
+                </div>
+                <div class="q-content" style="height: 0px; overflow: hidden; transition: height 0.3s ease;">
+                  <p style="padding-bottom: 16px; margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Made from premium materials. Machine wash cold, lay flat to dry. Do not bleach or tumble dry to maintain shape and color.</p>
+                </div>
               </div>
-              <div style="padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; cursor: pointer;">
-                <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Shipping & Returns</span>
-                <span style="color: var(--muted);">+</span>
+              <div class="q-accordion" style="border-bottom: 1px solid var(--border);">
+                <div style="padding: 16px 0; display: flex; justify-content: space-between; cursor: pointer;">
+                  <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Shipping & Returns</span>
+                  <span class="q-icon" style="color: var(--muted); transition: transform 0.3s;">+</span>
+                </div>
+                <div class="q-content" style="height: 0px; overflow: hidden; transition: height 0.3s ease;">
+                  <p style="padding-bottom: 16px; margin: 0; font-size: 13px; color: var(--muted); line-height: 1.5;">Complimentary standard shipping on all orders over $200. Returns accepted within 14 days of delivery in original condition.</p>
+                </div>
               </div>
             </div>
 
           </div>
         </div>
       `;
+      
+      let selectedSize = (p.sizes || ['S', 'M', 'L', 'XL'])[1];
+      const sizeBtns = content.querySelectorAll('.q-size-btn');
+      sizeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          sizeBtns.forEach(b => {
+            b.style.background = 'transparent';
+            b.style.color = 'var(--fg)';
+            b.style.borderColor = 'var(--border)';
+          });
+          btn.style.background = 'var(--fg)';
+          btn.style.color = 'var(--bg)';
+          btn.style.borderColor = 'var(--fg)';
+          selectedSize = btn.dataset.size;
+        });
+      });
+
+      const addBtn = content.querySelector('#q-add-to-bag');
+      if (addBtn) {
+        addBtn.addEventListener('click', () => {
+          window.LoyalCart.addItem(p, selectedSize);
+          document.querySelector('#quickview-overlay').classList.remove('active');
+        });
+      }
+
+      const accordions = content.querySelectorAll('.q-accordion');
+      accordions.forEach(acc => {
+        const header = acc.querySelector('div:first-child');
+        const accContent = acc.querySelector('.q-content');
+        const icon = acc.querySelector('.q-icon');
+        header.addEventListener('click', () => {
+          const isOpen = accContent.style.height !== '0px';
+          if (isOpen) {
+            accContent.style.height = '0px';
+            icon.style.transform = 'rotate(0deg)';
+          } else {
+            accContent.style.height = accContent.scrollHeight + 'px';
+            icon.style.transform = 'rotate(45deg)';
+          }
+        });
+      });
+
       openOverlay('quickview');
     };
   }
