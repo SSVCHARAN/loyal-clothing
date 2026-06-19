@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="app-backdrop" data-close="quickview"></div>
       <div class="quickview-modal" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--bg); width: 90%; max-width: 1000px; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh;">
         <button class="close-btn" data-close="quickview" style="position: absolute; top: 16px; right: 16px; z-index: 10; background: var(--surface); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">&times;</button>
-        <div id="quickview-content" style="display: flex; flex-wrap: wrap; height: 100%; overflow-y: auto; background: var(--bg);"></div>
+        <div id="quickview-content" style="flex: 1; min-height: 0; display: flex; flex-wrap: wrap; overflow-y: auto; background: var(--bg);"></div>
       </div>
     </div>
   `;
@@ -207,10 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const content = document.getElementById('quickview-content');
       content.innerHTML = `
-        <div style="flex: 1 1 300px; padding: 40px; display: flex; align-items: center; justify-content: center; background: var(--surface); box-sizing: border-box;">
-          <img src="${p.img}" style="width: 100%; height: 100%; max-height: 500px; object-fit: contain; ${p.filter ? `filter: ${p.filter};` : ''}" alt="${p.name}">
+        <div style="flex: 1 1 300px; min-width: 300px; padding: 40px; display: flex; align-items: center; justify-content: center; background: var(--surface); box-sizing: border-box;">
+          <img src="${p.img}" style="width: 100%; height: 100%; max-height: 450px; object-fit: contain; ${p.filter ? `filter: ${p.filter};` : ''}" alt="${p.name}">
         </div>
-        <div style="flex: 1 1 300px; padding: 48px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; background: var(--bg);">
+        <div style="flex: 1 1 300px; min-width: 300px; padding: 48px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; background: var(--bg);">
           <h2 style="font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; font-weight: 400;">${p.name}</h2>
           <p style="font-size: 24px; color: var(--accent); margin-bottom: 24px;">$${p.price}</p>
           <p style="color: var(--muted); margin-bottom: 32px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
