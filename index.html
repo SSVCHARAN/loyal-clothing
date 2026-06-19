@@ -43,19 +43,19 @@
 
   <main id="content">
     <!-- HERO SECTION -->
-    <section id="hero" style="height: 100vh; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center;">
-      <!-- Parallax Background Image -->
-      <div class="hero-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 120%; z-index: 1;">
-        <img src="images/hero-editorial.png" alt="Editorial Product Shot" style="width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65) contrast(1.1);">
-      </div>
-      <!-- Content Overlay -->
-      <div class="container" style="position: relative; z-index: 2; max-width: 900px; padding: 0 20px; display: flex; flex-direction: column; align-items: center;">
-        <p class="eyebrow gsap-hero-reveal" style="color: var(--accent); font-size: 13px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); letter-spacing: 0.25em; margin-bottom: 24px;">Summer Drop 2026</p>
-        <h1 class="gsap-hero-reveal" style="color: #ffffff; margin-top: 0; font-weight: 700; text-shadow: 0 4px 16px rgba(0,0,0,0.5); line-height: 1.05;">Loyalty is the new currency.</h1>
-        <p class="lead gsap-hero-reveal" style="margin: 24px auto 0; color: #E0F2FE; font-size: clamp(18px, 4vw, 24px); text-shadow: 0 2px 8px rgba(0,0,0,0.6); max-width: 600px;">Clean silhouettes, premium fabrics, and a commitment to the craft. Discover the collection that defines modern streetwear.</p>
-        <div class="hero-cta gsap-hero-reveal" style="margin-top: 48px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-          <a href="#collection" class="btn btn-primary" style="min-width: 200px; box-shadow: 0 8px 24px rgba(14,165,233,0.3);">Shop Collection</a>
-          <a href="#atelier" class="btn btn-secondary" style="min-width: 200px; color: #ffffff; border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.05); backdrop-filter: blur(12px);">Read Our Story</a>
+    <section id="hero" class="section" style="padding-top: 40px;">
+      <div class="container hero-split">
+        <div>
+          <p class="eyebrow gsap-reveal">Summer Drop 2026</p>
+          <h1 class="gsap-reveal">Loyalty is the new currency.</h1>
+          <p class="lead gsap-reveal" style="margin-top: 24px;">Clean silhouettes, premium fabrics, and a commitment to the craft. Discover the collection that defines modern streetwear.</p>
+          <div class="hero-cta gsap-reveal" style="margin-top: 32px; display: flex; gap: 16px; flex-wrap: wrap;">
+            <a href="#collection" class="btn btn-primary">Shop Collection</a>
+            <a href="#atelier" class="btn btn-secondary">Read Our Story</a>
+          </div>
+        </div>
+        <div class="ph-img gsap-reveal" style="aspect-ratio: 4/5; position: relative;">
+          <img src="images/hero-editorial.png" alt="Editorial Product Shot" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius);">
         </div>
       </div>
     </section>
@@ -253,65 +253,52 @@
     gsap.ticker.lagSmoothing(0)
 
     // Initial Reveal Animations
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1.4 } });
-    tl.fromTo('.hero-bg img', { scale: 1.1 }, { scale: 1, duration: 2, ease: 'power2.out' }, 0)
-      .fromTo('.topnav', { yPercent: -100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1 }, 0.2)
-      .fromTo('.gsap-hero-reveal', { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.15 }, 0.6);
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1.2 } });
+    tl.fromTo('.topnav', { yPercent: -100 }, { yPercent: 0, duration: 1 }, 0)
+      .fromTo('#hero .gsap-reveal', { y: 40, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1 }, 0.4);
 
-    // Scroll Reveals for content
-    const revealElements = document.querySelectorAll('.gsap-reveal');
+    // Scroll Reveals
+    const revealElements = document.querySelectorAll('.gsap-reveal:not(#hero .gsap-reveal)');
     revealElements.forEach(el => {
       gsap.fromTo(el, 
-        { y: 50, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           scrollTrigger: {
             trigger: el,
-            start: 'top 85%',
+            start: 'top 90%',
             toggleActions: 'play none none none'
           },
           y: 0,
           opacity: 1,
-          duration: 1.2,
+          duration: 1,
           ease: 'power3.out'
         }
       );
     });
 
-    // Image Parallax (Standard Elements)
+    // Image Parallax
     const parallaxImages = document.querySelectorAll('.lookbook-left img, .lookbook-right img, .ph-img img');
     parallaxImages.forEach(img => {
       gsap.fromTo(img, 
-        { yPercent: -10, scale: 1.05 },
+        { yPercent: -15 },
         {
-          yPercent: 10,
+          yPercent: 15,
           ease: 'none',
           scrollTrigger: {
             trigger: img.parentElement,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: 1.5
+            scrub: true
           }
         }
       );
     });
 
-    // Hero Background Parallax
-    gsap.to('.hero-bg', {
-      yPercent: 25,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true
-      }
-    });
-
     // Nav Background on Scroll
     ScrollTrigger.create({
       start: 'top -50',
-      onEnter: () => document.querySelector('.topnav').classList.add('scrolled'),
-      onLeaveBack: () => document.querySelector('.topnav').classList.remove('scrolled')
+      onEnter: () => gsap.to('.topnav', { background: 'rgba(245, 242, 235, 0.95)', duration: 0.4 }),
+      onLeaveBack: () => gsap.to('.topnav', { background: 'rgba(245, 242, 235, 0.8)', duration: 0.4 })
     });
   </script>
   <script src="cart.js?v=999"></script>

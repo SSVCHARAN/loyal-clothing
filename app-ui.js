@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <!-- Product Quick View Modal -->
     <div id="quickview-overlay" class="app-overlay" role="dialog" aria-modal="true" aria-label="Product Quick View">
       <div class="app-backdrop" data-close="quickview"></div>
-      <div class="quickview-modal" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--bg); width: 90%; max-width: 1000px; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh;">
+      <div class="quickview-modal" style="position: absolute; top: 0; left: 0; bottom: 0; right: 0; margin: auto; background: var(--bg); width: 90%; max-width: 1000px; border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; max-height: 90vh;">
         <button class="close-btn" data-close="quickview" style="position: absolute; top: 16px; right: 16px; z-index: 10; background: var(--surface); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">&times;</button>
         <div id="quickview-content" style="flex: 1; min-height: 0; display: flex; flex-wrap: wrap; overflow-y: auto; background: var(--bg);"></div>
       </div>
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (type === 'cart' || type === 'mobile-nav') {
         gsap.fromTo(panel, config.animProps, { x: '0%', duration: 0.5, ease: 'expo.out' });
       } else if (type === 'search' || type === 'quickview') {
-        gsap.fromTo(panel, config.animProps, { y: type==='search'?0:'-50%', x: type==='quickview'?'-50%':0, opacity: 1, scale: 1, duration: 0.5, ease: 'expo.out' });
+        gsap.fromTo(panel, config.animProps, { y: 0, x: 0, opacity: 1, scale: 1, duration: 0.5, ease: 'expo.out' });
       }
     }
   }
@@ -96,11 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const panel = overlay.querySelector(config.panel);
 
     if (typeof gsap !== 'undefined') {
-      if (type === 'quickview') {
-        gsap.to(panel, { ...config.animProps, x: '-50%', y: '-50%', duration: 0.3, ease: 'power2.in' });
-      } else {
-        gsap.to(panel, { ...config.animProps, duration: 0.4, ease: 'power2.in' });
-      }
+      gsap.to(panel, { ...config.animProps, duration: 0.4, ease: 'power2.in' });
       gsap.to(overlay, { opacity: 0, duration: 0.4, ease: 'power2.in', onComplete: () => overlay.classList.remove('active') });
     } else {
       overlay.classList.remove('active');
