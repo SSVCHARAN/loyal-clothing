@@ -203,46 +203,61 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const content = document.getElementById('quickview-content');
       content.innerHTML = `
-        <div style="flex: 1 1 300px; min-width: 300px; padding: 40px; display: flex; align-items: center; justify-content: center; background: var(--surface); box-sizing: border-box;">
-          <img src="${p.img}" style="width: 100%; height: 100%; max-height: 450px; object-fit: contain; ${p.filter ? `filter: ${p.filter};` : ''}" alt="${p.name}">
+        <div style="flex: 1 1 300px; min-width: 300px; display: flex; align-items: center; justify-content: center; background: #F5F2EB; box-sizing: border-box; position: relative;">
+          <img src="${p.img}" style="width: 100%; height: 100%; max-height: 600px; object-fit: contain; padding: 40px; box-sizing: border-box; ${p.filter ? `filter: ${p.filter};` : ''}" alt="${p.name}">
         </div>
-        <div style="flex: 1 1 300px; min-width: 300px; padding: 48px; display: flex; flex-direction: column; justify-content: center; box-sizing: border-box; background: var(--bg);">
-          
-          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-            <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin: 0;">${p.category} &bull; SKU: LY-${p.id.toString().padStart(3, '0')}</p>
-            <div style="display: flex; align-items: center; gap: 6px;">
-              <span style="color: #F59E0B; font-size: 14px; letter-spacing: 2px;">★★★★★</span>
-              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">(128)</span>
+        <div style="flex: 1 1 300px; min-width: 300px; display: flex; flex-direction: column; box-sizing: border-box; background: var(--bg);">
+          <div style="padding: 48px 40px; overflow-y: auto; height: 100%; box-sizing: border-box;">
+            
+            <div style="margin-bottom: 16px;">
+              <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">${p.category}</span>
             </div>
-          </div>
 
-          <h2 style="font-family: var(--font-display); font-size: 32px; margin-bottom: 8px; font-weight: 500; color: var(--fg); line-height: 1.1;">${p.name}</h2>
-          <p style="font-size: 24px; color: var(--accent); margin-bottom: 24px; font-weight: 400;">$${p.price}</p>
-          
-          <p style="color: var(--muted); margin-bottom: 32px; line-height: 1.6; font-size: 14px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
-          
-          <div style="margin-bottom: 24px;">
-            <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); margin-bottom: 8px; font-weight: 600;">Color: <span style="color: var(--muted); font-weight: 400;">${p.color || 'Signature Standard'}</span></p>
-          </div>
+            <h2 style="font-family: var(--font-display); font-size: 32px; font-weight: 400; color: var(--fg); margin-bottom: 8px; line-height: 1.1;">${p.name}</h2>
+            <p style="font-size: 20px; color: var(--fg); margin-bottom: 32px;">$${p.price} USD</p>
+            
+            <p style="color: var(--muted); margin-bottom: 32px; line-height: 1.6; font-size: 15px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
+            
+            <div style="height: 1px; background: var(--border); margin-bottom: 32px;"></div>
 
-          <div style="margin-bottom: 32px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-              <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 600; margin: 0;">Select Size</p>
-              <a href="#" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: underline;">Size Guide</a>
+            <div style="margin-bottom: 32px;">
+              <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); margin-bottom: 12px; font-weight: 500;">Color &mdash; <span style="color: var(--muted);">${p.color || 'Signature Standard'}</span></p>
+              <div style="display: flex; gap: 12px;">
+                <div style="width: 28px; height: 28px; border-radius: 50%; background: ${p.color && p.color.includes('Blue') ? '#2563EB' : p.color && p.color.includes('Yellow') ? '#EAB308' : p.color && p.color.includes('Pink') ? '#DB2777' : p.color && p.color.includes('Red') ? '#DC2626' : p.color && p.color.includes('Orange') ? '#EA580C' : p.color && p.color.includes('Violet') ? '#7C3AED' : '#1A1512'}; outline: 1px solid var(--fg); outline-offset: 2px; cursor: pointer;"></div>
+              </div>
             </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              ${(p.sizes || ['S', 'M', 'L', 'XL']).map((sz, i) => `
-                <button style="width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border: 1px solid ${i === 1 ? 'var(--fg)' : 'var(--border)'}; background: ${i === 1 ? 'var(--fg)' : 'transparent'}; color: ${i === 1 ? 'var(--bg)' : 'var(--fg)'}; font-family: var(--font-mono); font-size: 12px; cursor: pointer; transition: all 0.2s;">${sz}</button>
-              `).join('')}
+
+            <div style="margin-bottom: 40px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 12px; align-items: baseline;">
+                <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 500; margin: 0;">Size</p>
+                <a href="#" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: underline;">Size Guide</a>
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
+                ${(p.sizes || ['S', 'M', 'L', 'XL']).map((sz, i) => `
+                  <button style="height: 44px; border: 1px solid ${i === 1 ? 'var(--fg)' : 'var(--border)'}; background: ${i === 1 ? 'var(--fg)' : 'transparent'}; color: ${i === 1 ? 'var(--bg)' : 'var(--fg)'}; font-family: var(--font-mono); font-size: 13px; cursor: pointer; transition: all 0.2s;">${sz}</button>
+                `).join('')}
+              </div>
             </div>
-          </div>
 
-          <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 32px;">
-            <div style="width: 8px; height: 8px; border-radius: 50%; background: #10B981;"></div>
-            <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 500;">In Stock &mdash; Ships within 24h</span>
-          </div>
+            <button onclick="window.LoyalCart.addItem(products.find(x => x.id === ${p.id}), '${(p.sizes || ['S', 'M', 'L', 'XL'])[1]}'); document.querySelector('#quickview-overlay').classList.remove('active');" style="width: 100%; padding: 18px; background: var(--fg); color: var(--bg); border: 1px solid var(--fg); font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; font-size: 13px; transition: all 0.2s; margin-bottom: 16px;">Add to Bag</button>
+            
+            <div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+              <div style="width: 6px; height: 6px; border-radius: 50%; background: #10B981;"></div>
+              <span style="font-family: var(--font-body); font-size: 12px; color: var(--muted);">In stock & ready to ship</span>
+            </div>
 
-          <button onclick="window.LoyalCart.addItem(products.find(x => x.id === ${p.id}), '${(p.sizes || ['S', 'M', 'L', 'XL'])[1]}'); document.querySelector('#quickview-overlay').classList.remove('active');" class="btn btn-primary" style="width: 100%; padding: 18px; font-weight: 600; letter-spacing: 0.1em; box-shadow: var(--shadow-soft);">Add to Bag &mdash; $${p.price}</button>
+            <div style="margin-top: 48px; border-top: 1px solid var(--border);">
+              <div style="padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; cursor: pointer;">
+                <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Details & Care</span>
+                <span style="color: var(--muted);">+</span>
+              </div>
+              <div style="padding: 16px 0; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; cursor: pointer;">
+                <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Shipping & Returns</span>
+                <span style="color: var(--muted);">+</span>
+              </div>
+            </div>
+
+          </div>
         </div>
       `;
       openOverlay('quickview');
