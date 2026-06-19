@@ -162,10 +162,16 @@ h3, .h3 { font-family: var(--font-display); font-size: var(--fs-h3); line-height
   .lookbook-right { grid-column: span 5; }
 }
 .hero-split > div { padding-inline: clamp(20px, 4vw, 60px); }
-.hero-split > .ph-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); }
+.hero-split > .ph-img { border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-soft); padding-inline: 0; }
 @media (max-width: 920px) { 
-  .hero-split { grid-template-columns: 1fr; gap: 40px; }
-  .hero-split .btn { width: 100%; margin-bottom: 12px; }
+  .hero-split { display: flex; flex-direction: column; gap: 32px; }
+  .hero-split > div { padding-inline: 0; order: 2; text-align: center; display: flex; flex-direction: column; align-items: center; }
+  .hero-split > .ph-img { order: 1; width: 100%; margin-bottom: 16px; }
+  .hero-split .lead { margin-inline: auto; }
+  
+  .hero-cta { display: flex; flex-direction: column; width: 100%; gap: 12px; }
+  .hero-cta .btn { width: 100%; text-align: center; justify-content: center; }
+  
   .nav-actions { gap: 12px; }
   .logo { font-size: 20px; }
   .topnav-inner { padding-inline: 16px; }
