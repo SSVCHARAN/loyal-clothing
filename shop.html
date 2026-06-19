@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shop · Loyal Clothing</title>
+  <link rel="stylesheet" href="app-ui.css" />
+  <!-- GSAP for High-Performance Motion -->
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <header class="topnav">
+    <div class="container topnav-inner">
+      <a href="index.html" class="logo">Loyal</a>
+      <nav>
+        <a href="shop.html" class="active">Collection</a>
+        <a href="gallery.html">Lookbook</a>
+        <a href="about.html">Atelier</a>
+        <a href="support.html">Service</a>
+      </nav>
+      <div class="nav-actions">
+        <a href="#" aria-label="Search"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></a>
+        <a href="#" aria-label="Wishlist"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></a>
+        <a href="#" aria-label="Cart" style="position: relative;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span style="position: absolute; top: -8px; right: -8px; background: var(--accent); color: #fff; font-size: 10px; padding: 2px 5px; border-radius: 10px; font-weight: 700;">0</span>
+        </a>
+        <button class="nav-mobile-toggle" aria-label="Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <header class="shop-header">
+      <span class="eyebrow gsap-reveal" style="display: block; margin-bottom: 24px;">Atelier Collection</span>
+      <h1 class="gsap-reveal">Collection</h1>
+    </header>
+
+    <div class="shop-controls gsap-reveal">
+      <div style="display: flex; gap: 32px; position: relative;">
+        <select id="filter-select" style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; background: none; border: none; cursor: pointer; outline: none; appearance: none; color: inherit;">
+          <option value="All" style="color: black;">Filter: All</option>
+          <option value="Outerwear" style="color: black;">Outerwear</option>
+          <option value="Tops" style="color: black;">Tops</option>
+          <option value="Bottoms" style="color: black;">Bottoms</option>
+          <option value="Accessories" style="color: black;">Accessories</option>
+        </select>
+        <select id="sort-select" style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.15em; background: none; border: none; cursor: pointer; outline: none; appearance: none; color: inherit;">
+          <option value="Default" style="color: black;">Sort: Default</option>
+          <option value="Price: Low to High" style="color: black;">Price: Low to High</option>
+          <option value="Price: High to Low" style="color: black;">Price: High to Low</option>
+        </select>
+      </div>
+      <span id="count-display" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700;">8 Units in Drop</span>
+    </div>
+
+    <div class="grid-products" id="product-grid">
+      <!-- Products injected via JS -->
+    </div>
+
+    <div class="marquee-wrap gsap-reveal">
+      <div class="marquee-content">
+        <span>Permanence</span>
+        <span>Atelier</span>
+        <span>Loyalty</span>
+        <span>Permanence</span>
+        <span>Atelier</span>
+        <span>Loyalty</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; color: var(--muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em;">
+      <span class="gsap-reveal">© 2026 Loyal Clothing Co.</span>
+      <div class="gsap-reveal" style="display: flex; gap: 40px;">
+        <a href="support.html">Shipping</a>
+        <a href="support.html">Privacy</a>
+        <a href="support.html">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+
+
+    <script src="data.js"></script>
+    <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    let currentCategory = 'All';
+    let currentSort = 'Default';
+    const grid = document.getElementById('product-grid');
+
+    function renderGrid() {
+      let filtered = products;
+      if (currentCategory !== 'All') {
+        filtered = products.filter(p => p.category === currentCategory);
+      }
+      if (currentSort === 'Price: Low to High') {
+        filtered = filtered.slice().sort((a, b) => a.price - b.price);
+      } else if (currentSort === 'Price: High to Low') {
+        filtered = filtered.slice().sort((a, b) => b.price - a.price);
+      }
+
+      // Quick fade out
+      gsap.to('.product-card', { opacity: 0, y: 20, duration: 0.3, stagger: 0.05, onComplete: () => {
+        grid.innerHTML = filtered.map(p => `
+          <div class="product-card">
+            <a href="product.html?id=${p.id}">
+              <div class="product-img">
+                <img src="${p.img}" alt="${p.name}">
+              </div>
+              <div class="product-info">
+                <h3>${p.name}</h3>
+                <span class="product-price">$${p.price}</span>
+              </div>
+              <p style="font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 8px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">${p.color}</p>
+            </a>
+            <button onclick="window.LoyalCart.addItem(products.find(x => x.id === ${p.id}), products.find(x => x.id === ${p.id}).sizes[0])" class="btn btn-secondary" style="width: 100%; margin-top: 24px; justify-content: center; padding: 16px; font-size: 11px;">Add to Bag</button>
+          </div>
+        `).join('');
+
+        // Refresh parallax scroll triggers
+        ScrollTrigger.refresh();
+        
+        // Fade in
+        gsap.fromTo('.product-card', { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'expo.out' });
+        
+        // Re-attach product parallax
+        gsap.utils.toArray('.product-card').forEach(card => {
+          gsap.to(card.querySelector('img'), {
+            scrollTrigger: {
+              trigger: card,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true
+            },
+            yPercent: 12,
+            ease: 'none'
+          });
+        });
+      }});
+      
+      document.getElementById('count-display').textContent = `${filtered.length} Units in Drop`;
+    }
+
+    // Initialize
+    setTimeout(renderGrid, 100);
+
+
+
+    // Intro Animation
+    const tl = gsap.timeline({
+      defaults: { ease: 'expo.out', duration: 1.8 }
+    });
+
+    tl.fromTo('.topnav', { yPercent: -100 }, { yPercent: 0, duration: 1.2 }, 0)
+      .fromTo('.shop-header .gsap-reveal, .shop-controls', 
+        { y: 60, opacity: 0 }, 
+        { y: 0, opacity: 1, stagger: 0.1 }, 
+        0.4
+      );
+
+    // Scroll Reveals
+    const revealElements = document.querySelectorAll('.grid-products .gsap-reveal, footer .gsap-reveal, .marquee-wrap');
+    revealElements.forEach(el => {
+      gsap.fromTo(el, 
+        { y: 40, opacity: 0 },
+        {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            toggleActions: 'play none none none'
+          },
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          ease: 'expo.out'
+        }
+      );
+    });
+
+    // Marquee Animation
+    gsap.to('.marquee-content', {
+      xPercent: -50,
+      ease: 'none',
+      duration: 20,
+      repeat: -1
+    });
+
+    document.getElementById('filter-select').addEventListener('change', (e) => {
+      currentCategory = e.target.value;
+      renderGrid();
+    });
+    document.getElementById('sort-select').addEventListener('change', (e) => {
+      currentSort = e.target.value;
+      renderGrid();
+    });
+
+    // Nav Background on Scroll
+    ScrollTrigger.create({
+      start: 'top -50',
+      onEnter: () => gsap.to('.topnav', { background: 'rgba(245, 242, 235, 0.95)', duration: 0.4 }),
+      onLeaveBack: () => gsap.to('.topnav', { background: 'rgba(245, 242, 235, 0.8)', duration: 0.4 })
+    });
+  </script>
+  <script src="cart.js"></script>
+  <script src="app-ui.js"></script>
+</body>
+</html>

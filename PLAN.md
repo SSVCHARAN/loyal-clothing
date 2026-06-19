@@ -1,0 +1,9 @@
+- 1. Read active DESIGN.md + skill assets (template.html, layouts.md, checklist.md) [completed]
+- 2. Bind Neutral Modern design-system tokens/rules to :root in seed template
+- 3. Plan section list for landing.html (Hero, New Arrivals, Philosophy, Craftsmanship, Social, Newsletter)
+- 4. Implement landing.html using layouts.md skeletons
+- 5. Plan and implement shop.html with Product Grid, Filters, and Side-Cart JS
+- 6. Create index.html as a clean launcher for the multi-page prototype
+- 7. Self-check: run references/checklist.md on all pages
+- 8. Critique: 5-dim radar (philosophy / hierarchy / execution / specificity / restraint)
+- 9. Emit final <artifact> referencing the landing page entry point
