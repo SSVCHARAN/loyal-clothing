@@ -209,25 +209,34 @@ document.addEventListener('DOMContentLoaded', () => {
         <div style="flex: 1 1 300px; min-width: 300px; display: flex; flex-direction: column; box-sizing: border-box; background: var(--bg);">
           <div style="padding: 48px 40px; overflow-y: auto; height: 100%; box-sizing: border-box;">
             
-            <div style="margin-bottom: 16px;">
+            <style>
+              #q-add-to-bag { position: relative; overflow: hidden; transform: translateZ(0); box-shadow: 0 4px 14px 0 rgba(0,0,0,0.1); }
+              #q-add-to-bag::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.6s ease; }
+              #q-add-to-bag:hover::before { left: 100%; }
+              #q-add-to-bag:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); background: var(--accent); border-color: var(--accent); }
+              #q-add-to-bag:active { transform: translateY(0); }
+              .q-size-btn:hover { border-color: var(--fg) !important; transform: translateY(-1px); }
+            </style>
+
+            <div class="q-stagger" style="margin-bottom: 16px;">
               <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">${p.category}</span>
             </div>
 
-            <h2 style="font-family: var(--font-display); font-size: 32px; font-weight: 400; color: var(--fg); margin-bottom: 8px; line-height: 1.1;">${p.name}</h2>
-            <p style="font-size: 20px; color: var(--fg); margin-bottom: 32px;">$${p.price} USD</p>
+            <h2 class="q-stagger" style="font-family: var(--font-display); font-size: 32px; font-weight: 400; color: var(--fg); margin-bottom: 8px; line-height: 1.1;">${p.name}</h2>
+            <p class="q-stagger" style="font-size: 20px; color: var(--fg); margin-bottom: 32px;">$${p.price} USD</p>
             
-            <p style="color: var(--muted); margin-bottom: 32px; line-height: 1.6; font-size: 15px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
+            <p class="q-stagger" style="color: var(--muted); margin-bottom: 32px; line-height: 1.6; font-size: 15px;">${p.description || 'Premium heavyweight construction. Built for permanence and designed for modern streets.'}</p>
             
-            <div style="height: 1px; background: var(--border); margin-bottom: 32px;"></div>
+            <div class="q-stagger" style="height: 1px; background: var(--border); margin-bottom: 32px;"></div>
 
-            <div style="margin-bottom: 32px;">
+            <div class="q-stagger" style="margin-bottom: 32px;">
               <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); margin-bottom: 12px; font-weight: 500;">Color &mdash; <span style="color: var(--muted);">${p.color || 'Signature Standard'}</span></p>
               <div style="display: flex; gap: 12px;">
                 <div style="width: 28px; height: 28px; border-radius: 50%; background: ${p.color && p.color.includes('Blue') ? '#2563EB' : p.color && p.color.includes('Yellow') ? '#EAB308' : p.color && p.color.includes('Pink') ? '#DB2777' : p.color && p.color.includes('Red') ? '#DC2626' : p.color && p.color.includes('Orange') ? '#EA580C' : p.color && p.color.includes('Violet') ? '#7C3AED' : '#1A1512'}; outline: 1px solid var(--fg); outline-offset: 2px;"></div>
               </div>
             </div>
 
-            <div style="margin-bottom: 40px;">
+            <div class="q-stagger" style="margin-bottom: 40px;">
               <div style="display: flex; justify-content: space-between; margin-bottom: 12px; align-items: baseline;">
                 <p style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg); font-weight: 500; margin: 0;">Size</p>
                 <a href="#" onclick="event.preventDefault(); alert('Size Guide: Fits true to size. Take your normal size.');" style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); text-decoration: underline;">Size Guide</a>
@@ -239,14 +248,16 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
             </div>
 
-            <button id="q-add-to-bag" style="width: 100%; padding: 18px; background: var(--fg); color: var(--bg); border: 1px solid var(--fg); font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; font-size: 13px; transition: all 0.2s; margin-bottom: 16px;">Add to Bag</button>
+            <div class="q-stagger">
+              <button id="q-add-to-bag" style="width: 100%; padding: 18px; background: var(--fg); color: var(--bg); border: 1px solid var(--fg); font-family: var(--font-mono); font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; font-size: 13px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); margin-bottom: 16px;">Add to Bag</button>
+            </div>
             
-            <div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+            <div class="q-stagger" style="display: flex; justify-content: center; align-items: center; gap: 8px;">
               <div style="width: 6px; height: 6px; border-radius: 50%; background: #10B981;"></div>
               <span style="font-family: var(--font-body); font-size: 12px; color: var(--muted);">In stock & ready to ship</span>
             </div>
 
-            <div style="margin-top: 48px; border-top: 1px solid var(--border);">
+            <div class="q-stagger" style="margin-top: 48px; border-top: 1px solid var(--border);">
               <div class="q-accordion" style="border-bottom: 1px solid var(--border);">
                 <div style="padding: 16px 0; display: flex; justify-content: space-between; cursor: pointer;">
                   <span style="font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--fg);">Details & Care</span>
@@ -313,6 +324,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       openOverlay('quickview');
+
+      // Subtle Entrance Animations
+      if (typeof gsap !== 'undefined') {
+        gsap.fromTo(content.querySelectorAll('.q-stagger'), 
+          { y: 20, opacity: 0 }, 
+          { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power3.out', delay: 0.1 }
+        );
+        gsap.fromTo(content.previousElementSibling.querySelector('img'),
+          { scale: 0.95, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.1 }
+        );
+      }
     };
   }
 
