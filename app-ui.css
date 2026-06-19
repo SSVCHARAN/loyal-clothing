@@ -142,6 +142,18 @@ h3, .h3 { font-family: var(--font-display); font-size: var(--fs-h3); line-height
 .gsap-reveal { will-change: transform, opacity; }
 
 /* Layout Utilities */
+.cart-drawer-item { display: grid; grid-template-columns: 80px 1fr auto; gap: 16px; margin-bottom: 24px; align-items: center; }
+
+/* Quickview Modal Responsive */
+.quickview-grid { display: grid; grid-template-columns: 1fr; }
+.quickview-img-container { aspect-ratio: 1/1; width: 100%; overflow: hidden; }
+.quickview-info-container { padding: 32px 24px; display: flex; flex-direction: column; justify-content: center; }
+@media(min-width: 768px) {
+  .quickview-grid { grid-template-columns: 1fr 1fr; }
+  .quickview-img-container { aspect-ratio: auto; min-height: 500px; }
+  .quickview-info-container { padding: 40px; }
+}
+
 .hero-split { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .lookbook-left { grid-column: span 12; }
 .lookbook-right { grid-column: span 12; }
