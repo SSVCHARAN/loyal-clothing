@@ -54,8 +54,8 @@
             <a href="#atelier" class="btn btn-secondary">Read Our Story</a>
           </div>
         </div>
-        <div class="ph-img gsap-reveal" style="aspect-ratio: 4/5; position: relative;">
-          <img src="images/hero-editorial.png" alt="Editorial Product Shot" style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius);">
+        <div class="ph-img gsap-reveal" style="position: relative;">
+          <img src="images/hero-editorial.png" alt="Editorial Product Shot" style="width: 100%; height: auto; display: block; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
         </div>
       </div>
     </section>
@@ -94,27 +94,67 @@
     <!-- LOOKBOOK SECTION -->
     <section id="lookbook" class="section">
       <div class="container">
-        <div style="text-align: center; margin-bottom: 64px;">
-          <span class="eyebrow gsap-reveal">Visual Narrative</span>
-          <h2 class="h2 gsap-reveal">Lookbook 01</h2>
-        </div>
         
-        <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(16px, 3vw, 40px);">
-          <!-- Large Left -->
-          <div class="gsap-reveal lookbook-left" style="aspect-ratio: 4/5; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
-            <img src="images/lookbook-wide.png" alt="Editorial 1" style="width: 100%; height: 100%; object-fit: cover;">
+        <!-- LOOKBOOK 01 -->
+        <div style="margin-bottom: 120px;">
+          <div style="text-align: center; margin-bottom: 64px;">
+            <span class="eyebrow gsap-reveal">Vol 1. Core</span>
+            <h2 class="h2 gsap-reveal" style="font-size: clamp(32px, 5vw, 48px);">The Foundation</h2>
           </div>
-          <!-- Stacked Right -->
-          <div class="lookbook-right" style="display: flex; flex-direction: column; gap: clamp(16px, 3vw, 40px);">
-            <div class="gsap-reveal" style="flex: 1; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
-              <img src="images/lookbook-portrait.png" alt="Editorial 2" style="width: 100%; height: 100%; object-fit: cover;">
+          
+          <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(16px, 3vw, 40px); align-items: start;">
+            <!-- Large Left -->
+            <div class="gsap-reveal lookbook-left" style="overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+              <img src="images/lookbook-wide.png" alt="Look 1" style="width: 100%; height: auto; display: block; object-fit: cover;">
             </div>
-            <div class="gsap-reveal" style="padding: 32px; background: var(--surface); border-radius: var(--radius); display: flex; flex-direction: column; justify-content: center; flex: 1;">
-              <p style="font-family: var(--font-serif); font-size: 24px; color: var(--accent); margin: 0 0 16px;">"Permanence in design."</p>
-              <p style="color: var(--muted);">We reject the disposable nature of modern trends. Every seam, every cut, is engineered to last a lifetime.</p>
+            <!-- Stacked Right -->
+            <div class="lookbook-right" style="display: flex; flex-direction: column; gap: clamp(16px, 3vw, 40px);">
+              <div class="gsap-reveal" style="overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+                <img src="images/lookbook-portrait.png" alt="Look 2" style="width: 100%; height: auto; display: block; object-fit: cover;">
+              </div>
+              <div style="display: flex; gap: clamp(16px, 3vw, 40px); flex-wrap: wrap;">
+                <div class="gsap-reveal" style="flex: 1 1 200px; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+                  <img src="images/lookbook-detail-1.png" alt="Look 3" style="width: 100%; height: 100%; min-height: 250px; object-fit: cover; display: block;">
+                </div>
+                <div class="gsap-reveal" style="padding: 32px; background: var(--surface); border-radius: var(--radius); display: flex; flex-direction: column; justify-content: center; flex: 1 1 200px;">
+                  <p style="font-family: var(--font-serif); font-size: 24px; color: var(--accent); margin: 0 0 16px; line-height: 1.3;">"Permanence in design."</p>
+                  <p style="color: var(--muted); font-size: 14px;">We reject the disposable nature of modern trends. Every seam, every cut, is engineered to last a lifetime.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- LOOKBOOK 02 -->
+        <div>
+          <div style="text-align: center; margin-bottom: 64px;">
+            <span class="eyebrow gsap-reveal">Vol 2. Movement</span>
+            <h2 class="h2 gsap-reveal" style="font-size: clamp(32px, 5vw, 48px);">Active Techwear</h2>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(16px, 3vw, 40px); align-items: start;">
+            <!-- Stacked Left -->
+            <div class="lookbook-right" style="display: flex; flex-direction: column; gap: clamp(16px, 3vw, 40px);">
+              <div style="display: flex; gap: clamp(16px, 3vw, 40px); flex-wrap: wrap;">
+                <div class="gsap-reveal" style="padding: 32px; background: var(--surface); border-radius: var(--radius); display: flex; flex-direction: column; justify-content: center; flex: 1 1 200px;">
+                  <p style="font-family: var(--font-serif); font-size: 24px; color: var(--accent); margin: 0 0 16px; line-height: 1.3;">"Fluidity in motion."</p>
+                  <p style="color: var(--muted); font-size: 14px;">Engineered fabrics that breathe and move with the modern city landscape.</p>
+                </div>
+                <div class="gsap-reveal" style="flex: 1 1 200px; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+                  <img src="images/lookbook_active_detail.png" alt="Look 4" style="width: 100%; height: 100%; min-height: 250px; object-fit: cover; display: block;">
+                </div>
+              </div>
+              <div class="gsap-reveal" style="overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+                <img src="images/lookbook_active_wide.png" alt="Look 5" style="width: 100%; height: auto; display: block; object-fit: cover;">
+              </div>
+            </div>
+            <!-- Large Right -->
+            <div class="gsap-reveal lookbook-left" style="overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow-soft);">
+              <img src="images/lookbook_active_portrait.png" alt="Look 6" style="width: 100%; height: auto; display: block; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
